@@ -1,10 +1,12 @@
 const express = require("express");
-const router = express.Router();
+const PdfRouter = express.Router();
+const auth = require("../middleware/auth");
+const { postpdf, getPdfs, deletePdf, updatePdf } = require("../controllers/pdf");
 
-const {pdf} = require("../controllers/pdf");
-const {getPdfs} = require("../controllers/getPdfs");
 
-router.post("/", pdf);
-router.get("/", getPdfs);
+PdfRouter.post("/Upload", auth,  postpdf);
+PdfRouter.get("/getpdfs", getPdfs);
+PdfRouter.delete("/pdf/:id", auth, deletePdf);
+PdfRouter.put("/pdf/:id", auth, updatePdf);
 
-module.exports = router;
+module.exports = PdfRouter;
